@@ -76,7 +76,70 @@ string insertAfter(string after, string data, Node *head){
 
     return "An new node has been added after " + after + "\n"; // return confirmation message
 }
+string deleteAtEnd(Node *head){
+    if(head == NULL){
+        return "The head has been deleted \n";
+    }
+    if(head->link == NULL){
+        delete head;
+        return "The head has beed deleted \n";
+    }
 
+    Node *temp = new Node;
+    temp = head;
+
+    while(temp->link->link != NULL){
+        temp = temp->link;
+    }
+    temp->link = NULL;
+    
+    return "A node has been deleted at the end \n";
+ }
+ Node *deleteFromBeginning(Node *head){
+    if(head == NULL){
+        cout << "The liunked list is empty \n" <<endl;
+        return NULL;
+    }
+
+    if(head->link == NULL){
+        delete head;
+    }
+
+    head = head->link;
+
+    cout <<"A node has been delete from the beginning \n" <<endl;
+
+    return head;
+ }
+
+ Node *deleteFromGivenNode(string givenNode,Node *head) { 
+    if(head == NULL) {
+      cout << "The linked list is empty. \n" << endl; 
+      return NULL; 
+    } 
+
+    if(head->songName.compare(givenNode) == 0){
+        head = deleteFromBeginning(head); 
+        cout << "The Node " + givenNode + "has been deleted. \n" << endl; 
+        return head; 
+    } 
+    Node *temp = new Node;
+    Node *next = new Node;
+    temp = head; 
+    next = temp->link; 
+
+    while(next->songName.compare(givenNode) != 0) { 
+        if(temp == NULL){ 
+            cout << "No such node exist. \n" <<endl; 
+            return head; 
+        } 
+        next = next->link; 
+        temp = temp->link; 
+    } 
+    temp->link = next->link; 
+    cout << "The Node" + givenNode + "has been deleted. \n" << endl;
+    return head;
+}
 int main(){
 
     Node *head = createNode ("Sanctuary by Joji");
@@ -90,5 +153,22 @@ int main(){
     head = insertAtTheBeginning("Bawat Sandali By Amiel", head);
     
     traverse(head);
+
+    string result = insertAfter("Rain Rain Go Away by Cocomelon", "palagi", head);
+    cout << result; 
+    
+    string result1 = insertAfter("My Heart's Desire by Musikatha", "tadhana", head);
+    cout << result1; 
+    
+    string result2 = insertAfter("Ikaw at Ako by Moira Dela Torre", "paubaya", head);
+    cout << result2;
+    
+    string END = deleteAtEnd(head);
+    cout << END << endl;
+    head = deleteFromBeginning(head);
+    head = deleteFromGivenNode("My Heart's Desire by Musikatha", head);
+    traverse(head);
+
+   
       return 0;
 }
