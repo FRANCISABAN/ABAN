@@ -20,7 +20,8 @@ void traverse(Node *head){
     while(temp != NULL){
         cout << temp->songName<< "->"<<endl;
         if(temp->link == NULL){
-            cout << "NULL"<<endl;
+            cout << head -> songName<< endl;
+        
         }
 
         temp = temp->link;
